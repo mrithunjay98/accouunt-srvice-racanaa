@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="tomcat-logs">./logs</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="account-service-log"
+                     fileName="${tomcat-logs}/account-service.log"
+                     filePattern="${tomcat-logs}/account-service-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %X{X-Request-ID} %level [%t] %class{36}.%M %L - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.hibernate.SQL" level="error" additivity="false">
+            <AppenderRef ref="account-service-log"/>
+        </Logger>
+        <Root level="info">
+            <AppenderRef ref="account-service-log"/>
+        </Root>
+    </Loggers>
+</Configuration>
